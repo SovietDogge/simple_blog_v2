@@ -1,7 +1,8 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
 from rest_framework.response import Response
 
-from baseapp.serializers import CustomUserSerializer
+from .models import CustomUser
+from .serializers import CustomUserSerializer
 
 
 class FollowersViewSet(viewsets.ViewSet):
@@ -10,8 +11,7 @@ class FollowersViewSet(viewsets.ViewSet):
         pass
 
 
-class CustomUserViewSet(viewsets.ViewSet):
+class CustomUserViewSet(generics.CreateAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = CustomUserSerializer
 
-    def create(self, request):
-        data = request.data
-        return Response(CustomUserSerializer(data))
