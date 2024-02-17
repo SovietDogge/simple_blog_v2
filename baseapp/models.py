@@ -27,7 +27,6 @@ class Follows(models.Model):
 
 
 class CustomUser(models.Model):
-    registered_time = models.DateTimeField(auto_now_add=True, editable=False)
     description = models.TextField(null=True)
     user = models.OneToOneField(django.contrib.auth.models.User, on_delete=models.CASCADE, related_name='user')
     subscriptions = models.ManyToManyField('CustomUser', through=Follows, related_name='leader_follower')
