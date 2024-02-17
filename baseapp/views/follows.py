@@ -1,9 +1,9 @@
 from django.contrib.auth.models import User
-from rest_framework import viewsets, generics
+from rest_framework import generics
 from rest_framework.response import Response
 
-from .models import CustomUser, Follows
-from .serializers import FollowersSerializer, CustomUserSerializer
+from baseapp.models import Follows
+from baseapp.serializers import FollowersSerializer
 
 
 class FollowsViewSet(generics.CreateAPIView):
@@ -18,8 +18,3 @@ class FollowsViewSet(generics.CreateAPIView):
             return Response(self.serializer_class(bound).data)
         else:
             return 'No such a user'
-
-
-class CustomUserRegistrateView(generics.CreateAPIView):
-    queryset = CustomUser.objects.all()
-    serializer_class = CustomUserSerializer
