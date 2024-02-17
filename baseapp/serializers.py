@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 
-from .models import CustomUser
+from .models import CustomUser, Follows
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -21,3 +21,12 @@ class CustomUserSerializer(serializers.ModelSerializer):
         user = User.objects.create(**validated_data.pop('user'))
         custom_user = CustomUser.objects.create(user=user, **validated_data)
         return custom_user
+
+
+class FollowersSerializer(serializers.ModelSerializer):
+    follower = serializers.CharField(source='follower.username')
+    leader = serializers.CharField(source='leader.username')
+
+    class Meta:
+        model = Follows
+        exclude = ('id', )
