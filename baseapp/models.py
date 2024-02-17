@@ -10,6 +10,7 @@ class Follows(models.Model):
 
     class Meta:
         unique_together = ('follower', 'leader')
+        verbose_name_plural = 'Follows'
 
     def clean(self):
         follower_id = self.follower.id

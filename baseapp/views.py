@@ -3,7 +3,7 @@ from rest_framework import viewsets, generics
 from rest_framework.response import Response
 
 from .models import CustomUser, Follows
-from .serializers import CustomUserSerializer, FollowersSerializer
+from .serializers import FollowersSerializer, CustomUserSerializer
 
 
 class FollowsViewSet(generics.CreateAPIView):
