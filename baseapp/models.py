@@ -33,3 +33,15 @@ class CustomUser(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+class Post(models.Model):
+    title = models.CharField(max_length=150, null=True)
+    content = models.TextField(max_length=5000)
+    written_at = models.DateTimeField(auto_now_add=True, editable=False)
+    updated_at = models.DateTimeField(null=True)
+
+    custom_user = models.ForeignKey(CustomUser, related_name='post', null=True, on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return f'{self.custom_user.user.username} - {self.title or self.id}'
