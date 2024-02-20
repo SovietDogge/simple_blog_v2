@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from rest_framework import generics, viewsets
+from rest_framework import viewsets
 from rest_framework.response import Response
 
 from baseapp.models import Follows
@@ -16,4 +16,13 @@ class FollowsViewSet(viewsets.ViewSet):
                                            leader=leader)
             return Response(FollowersSerializer(bound).data)
         else:
-            return 'No such a user'
+            return Response('User is not authenticated')
+
+    def list(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            follows = Follows.objects.filter(follower=request.user.id)
+            return Response(FollowersSerializer(follows, many=True).data)
+
+        else:
+            return Response('User is not authenticated')
+

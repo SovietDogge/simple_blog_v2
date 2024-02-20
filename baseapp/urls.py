@@ -8,7 +8,7 @@ from baseapp import views
 router = DefaultRouter()
 router.register(r'user', views.UserViewSet)
 router.register(r'user', views.CustomUserDetailView)
-router.register(r'follow', views.FollowsViewSet)
+router.register(r'user/follow', views.FollowsViewSet)
 
 urlpatterns = [
     path('login/', TokenObtainPairView.as_view()),

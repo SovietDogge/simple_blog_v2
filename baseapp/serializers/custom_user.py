@@ -31,4 +31,4 @@ class CustomUserDetailViewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomUser
-        fields = ('description', 'registered_time', 'user')
+        fields = ('description', 'user')

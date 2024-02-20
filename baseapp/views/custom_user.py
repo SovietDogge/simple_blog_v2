@@ -16,6 +16,6 @@ class CustomUserDetailView(viewsets.ViewSet):
     lookup_field = 'username'
 
     def retrieve(self, request, username=None):
-        user = CustomUser.objects.filter(user__username=username).select_related('user').get()
+        user = self.queryset.filter(user__username=username).select_related('user').get()
         user_data = CustomUserDetailViewSerializer(user).data
         return Response(user_data)
