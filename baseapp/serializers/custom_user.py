@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
+from .follows import FollowersSerializer
 from .user import UserCreateSerializer, UserDeleteSerializer, UserDetailViewSerializer
 from ..models import CustomUser
 

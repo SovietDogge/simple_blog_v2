@@ -29,19 +29,7 @@ class Follows(models.Model):
 class CustomUser(models.Model):
     description = models.TextField(null=True)
     user = models.OneToOneField(django.contrib.auth.models.User, on_delete=models.CASCADE, related_name='user')
-    subscriptions = models.ManyToManyField('CustomUser', through=Follows, related_name='leader_follower')
+    follows = models.ManyToManyField('self', through=Follows, symmetrical=False)
 
     def __str__(self):
         return self.user.username
-
-
-class Post(models.Model):
-    title = models.CharField(max_length=150, null=True)
-    content = models.TextField(max_length=5000)
-    written_at = models.DateTimeField(auto_now_add=True, editable=False)
-    updated_at = models.DateTimeField(null=True)
-
-    custom_user = models.ForeignKey(CustomUser, related_name='post', null=True, on_delete=models.SET_NULL)
-
-    def __str__(self):
-        return f'{self.custom_user.user.username} - {self.title or self.id}'

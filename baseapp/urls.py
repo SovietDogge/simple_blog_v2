@@ -8,11 +8,11 @@ from baseapp import views
 router = DefaultRouter()
 router.register(r'user', views.UserViewSet)
 router.register(r'user', views.CustomUserDetailView)
-router.register(r'user/follow', views.FollowsViewSet)
+# router.register(r'user/follow', views.FollowsViewSet)
 
 urlpatterns = [
-    path('login/', TokenObtainPairView.as_view()),
-    path('token/refresh/', TokenRefreshView.as_view()),
-    path('registration/', views.CustomUserRegistrateView.as_view()),
+    path('user/login/', TokenObtainPairView.as_view()),
+    path('user/token/refresh/', TokenRefreshView.as_view()),
+    path('user/registration/', views.CustomUserRegistrateView.as_view()),
     path('api/', include(router.urls)),
 ]
