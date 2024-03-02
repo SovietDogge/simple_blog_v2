@@ -23,7 +23,7 @@ class UserViewSet(viewsets.ViewSet):
     )
     def create_follow(self, request, username=None):
         if request.user.is_authenticated:
-            leader = User.objects.filter(username=request.data['username']).get()
+            leader = User.objects.filter(username=username).get()
             bound = Follows.objects.create(follower=request.user,
                                            leader=leader)
             return Response(FollowersSerializer(bound).data)
@@ -31,7 +31,7 @@ class UserViewSet(viewsets.ViewSet):
             return Response('User is not authenticated')
 
     def destroy(self, request, username=None):
-        if request.user.is_authenticated:
+        if (request.user.is_authenticated and username == request.user['username']) or request.user.is_superuser:
             request.user.is_active = False
             request.user.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
