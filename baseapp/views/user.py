@@ -10,6 +10,8 @@ from baseapp.serializers import UserViewSerializer, FollowersSerializer
 class UserViewSet(viewsets.ViewSet):
     queryset = User.objects.all()
 
+    lookup_field = 'username'
+
     def list(self, request):
         serializer = UserViewSerializer(self.queryset, many=True)
         return Response(serializer.data)
@@ -28,8 +30,9 @@ class UserViewSet(viewsets.ViewSet):
         else:
             return Response('User is not authenticated')
 
-    def destroy(self, request, pk=None):
+    def destroy(self, request, username=None):
         if request.user.is_authenticated:
+            request.user.is_active = False
             request.user.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
 
