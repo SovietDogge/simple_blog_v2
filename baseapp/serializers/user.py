@@ -17,6 +17,11 @@ class UserCreateSerializer(serializers.ModelSerializer):
         user.save()
         return user
 
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data.pop('password')
+        return data
+
 
 class UserViewSerializer(serializers.ModelSerializer):
     class Meta:
