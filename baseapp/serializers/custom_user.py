@@ -29,7 +29,10 @@ class CustomUserDeleteSerializer(serializers.ModelSerializer):
 
 class CustomUserDetailViewSerializer(serializers.ModelSerializer):
     user = UserDetailViewSerializer()
+    # user_follow = FollowersSerializer()
 
     class Meta:
         model = CustomUser
-        fields = ('description', 'user')
+        fields = ('description', 'user',
+                  # 'user_follow'
+                  )

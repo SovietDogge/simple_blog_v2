@@ -29,7 +29,7 @@ class Follows(models.Model):
 class CustomUser(models.Model):
     description = models.TextField(null=True)
     user = models.OneToOneField(django.contrib.auth.models.User, on_delete=models.CASCADE, related_name='user')
-    follows = models.ManyToManyField('self', through=Follows, symmetrical=False)
+    user_follow = models.ManyToManyField('self', through=Follows, symmetrical=False, related_name='followed_by_user')
 
     def __str__(self):
         return self.user.username

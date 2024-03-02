@@ -1,3 +1,4 @@
+from django.db.models import Prefetch
 from rest_framework import generics, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -19,6 +20,7 @@ class CustomUserDetailView(viewsets.ViewSet):
     def retrieve(self, request, username=None):
         user = (self.queryset.filter(user__username=username)
                 .select_related('user')
+                # .prefetch_related(Prefetch('followed_by_user', queryset=Follows.objects.all()))
                 .get())
         user_data = CustomUserDetailViewSerializer(user).data
         return Response(user_data)

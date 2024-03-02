@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
@@ -27,4 +27,9 @@ class UserViewSet(viewsets.ViewSet):
             return Response(FollowersSerializer(bound).data)
         else:
             return Response('User is not authenticated')
+
+    def destroy(self, request, pk=None):
+        if request.user.is_authenticated:
+            request.user.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
 
